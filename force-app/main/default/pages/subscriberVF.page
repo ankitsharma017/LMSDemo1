@@ -1,0 +1,40 @@
+<apex:page controller="AccountController">
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Congratulations</h1>
+This is your new Page
+<!-- End Default Content REMOVE THIS -->
+<apex:form >
+    <script>
+        var ACCOUNTLMC;
+        window.onload = function(){
+            ACCOUNTLMC = "{!$MessageChannel.AccountMessageChannel__c}";
+            sforce.one.subscribe(ACCOUNTLMC,onLMCPublished,{scope:"APPLICATION"});
+        }
+        function onLMCPublished(message){
+            displayAccount(message.AccountId,message.AdditionalInfo);
+        }
+    </script>
+    <apex:actionFunction name="displayAccount" action="{!retrieveAccountDetail}" reRender="accDetail">
+        <apex:param name="accountId" value="" assignTo="{!accountId}"/>
+        <apex:param name="additionalInfo" value="" assignTo="{!additionalInfo}"/>
+        <!-- <apex:param name="accountId" value="" assignTo="{!accountId}"/> -->
+    </apex:actionFunction>
+
+    <apex:outputPanel id="accDetail" style="(!IF(accDisplay == true), '','display:none')}">
+        <apex:pageBlock title="Account Detail">
+            <apex:pageBlockSection columns="1">
+                <apex:outputField value="{!accObj.Name}"/>
+                <apex:outputField value="{!accObj.Type}"/>
+                <apex:outputField value="{!accObj.Phone}"/>
+                <apex:outputField value="{!accObj.AnnualRevenue}"/>
+                <apex:outputField value="{!accObj.Industry}"/>
+                <apex:outputField value="{!accObj.Website}"/>
+
+                <apex:outputText id='additionalInfo'>
+                    <p style="color:green">{!additionalInfo}</p>
+                </apex:outputText>
+            </apex:pageBlockSection>
+        </apex:pageBlock>
+    </apex:outputPanel>
+</apex:form>
+</apex:page>

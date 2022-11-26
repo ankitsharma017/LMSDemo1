@@ -1,0 +1,25 @@
+<apex:page controller="AccountController">
+    
+<!-- Begin Default Content REMOVE THIS -->
+<h1>Publiisher VF Page</h1>
+<apex:form>
+    <apex:pageBlock>
+        <apex:pageBlockTable value="{!Accounts}" var="accObj">
+            <apex:column headerValue="Account Name">
+                <a href="#" onclick="handleOnClick('{!accObj.Id}');">{!accObj.Name}</a>
+            </apex:column>
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:form>
+<script>
+    var AccountLMC = "{!$MessageChannel.AccountMessageChannel__c}";
+    function handleOnClick(accountId){
+        var payLoad = {
+            AccountId: accountId,
+            AdditionalInfo:"This event is published from PublisherVFPage"
+        }
+        sforce.one.publish(AccountLMC,payLoad);
+    }
+</script>
+<!-- End Default Content REMOVE THIS -->
+</apex:page>

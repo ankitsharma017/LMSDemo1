@@ -1,0 +1,16 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" controller="AccountController">
+    <aura:attribute name="accountResults" type="Account[]"/>
+    <aura:handler name="init" value="{!this}" action="{!c.doInit}"/>
+    <lightning:messagechannel type="AccountMessageChannel__c" aura:id="ACCOUNTLMC" />
+    <!-- <lightning:messagechannel type="AccountMessageChannel2__c" aura:id="accountMessageChannel"/> -->
+
+    <lightning:card title="AccountList - Aura Publisher">
+        <p class="slds-var-p-horizontal_small">
+            <aura:iteration items="{!v.accountResults}" var="acc">
+                <lightning:tile>
+                    <a data-value="{!acc.Id}" onclick="{!c.handleClick}" href="#">{!acc.Name}</a>
+                </lightning:tile>
+            </aura:iteration>
+        </p>
+    </lightning:card>
+</aura:component>

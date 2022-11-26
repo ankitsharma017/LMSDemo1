@@ -1,0 +1,25 @@
+<aura:component implements="flexipage:availableForAllPageTypes" access="global" >
+    <aura:attribute name="AdditionalInfo" type="String"/>
+    <aura:attribute name="recordValue" type="String"/>
+    <aura:attribute name="recordData" type="String"/>
+    <aura:attribute name="accountIDFromLMS" type="String"/>
+    <aura:attribute name="fields" type="String[]" default="['Name','Type','AnnualRevenue','Inudstry','Website']"/>
+    <lightning:messageChannel type="AccountMessageChannel__c" onMessage="{!c.handleLMSMessage}" scope="APPLICATION" />
+    <!-- <lightning:messageChannel type="AccountMessageChannel2__c" onMessage="{!c.handleLMSMessage}" scope="APPLICATION"/> -->
+
+    <lightning:card title="Account Details - Aura Subscriber" >
+        <p class="slds-var-p-horizontal_small">
+            <aura:if isTrue="{!v.accountIDFromLMS}">
+                <lightning:recordForm
+                    aura:id="myRecordForm"
+                    recordId="{!v.accountIDFromLMS}"
+                    objectApiName="Account"
+                    fields="{!v.fields}"
+                    columns="1"
+                    mode="view"
+                />
+            </aura:if>
+        </p>
+        <p class="slds-var-p-horizontal_small" style="color:green;">{!v.AdditionalInfo}</p>
+    </lightning:card>
+</aura:component>	

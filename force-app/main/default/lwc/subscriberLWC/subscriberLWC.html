@@ -1,0 +1,17 @@
+<template>
+    <lightning-card title="Account Details - LWC Subscriber">
+        <template if:true={accountId}>
+            <p class="slds-var-p-horizontal_small">
+                <lightning-record-form
+                record-id={accountId}
+                object-api-name={objectApiName}
+                fields={fields}
+                columns="1"
+                mode="view">
+            </lightning-record-form>
+            </p>
+            <p class="slds-var-p-horizontal_small" style="color:green">AditionalInfo:{additionalInfo}</p>
+        </template>
+
+    </lightning-card>
+</template>
